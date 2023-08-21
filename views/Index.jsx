@@ -7,7 +7,7 @@ const myStyle = {
     fontFamily: "sans-serif",
     };
 
-function Index() {
+function Index({pokemon}) {
   return (
     <div>
         <h1 style={myStyle}>See All The Pokemon!</h1>

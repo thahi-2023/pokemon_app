@@ -6,7 +6,7 @@ const myStyle = {
     };
 
 
-function Show() {
+function Show({pokemon}) {
   return (
     <div style={myStyle}>
         <h1>"Gotta Catch 'Em All"</h1>
