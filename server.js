@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express()
 const port = 3000;
+const pokemon = require ('.models/pokemon.js')
 
 
 //Route Home
 app.get('/', (req, res)=> {
+   // res.send(pokemon)
     res.send('<h1>Welcome To Pokemon App!<h1/>')
 });
 
