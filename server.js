@@ -1,7 +1,17 @@
 const express = require('express');
 const app = express()
 const port = 3000;
-const pokemon = require ('.models/pokemon.js')
+const pokemon = require('./models/pokemon.js')
+
+//setting view engine
+// Setting up view engine
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
+
+
+
+
 
 
 //Route Home
@@ -9,6 +19,13 @@ app.get('/', (req, res)=> {
    // res.send(pokemon)
     res.send('<h1>Welcome To Pokemon App!<h1/>')
 });
+
+//pokemon Index
+app.get('/pokemon', (req, res)=> {
+    res.render('Index', {
+        pokemon: pokemon,
+    })
+})
 
 
 
