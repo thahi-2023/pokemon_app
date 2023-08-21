@@ -2,7 +2,9 @@ import React from 'react'
 
 function Show() {
   return (
-    <div>Show</div>
+    <div>
+        <h1>"Gotta Catch 'Em All"</h1>
+    </div>
   )
 }
 
