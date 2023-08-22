@@ -3,7 +3,7 @@ import React from 'react'
 
 const myStyle = {
     color: '#ffffff',
-    backgroundColor: '#9fe8fa',
+    backgroundColor: '#ff0000',
     fontFamily: "sans-serif",
     };
 
