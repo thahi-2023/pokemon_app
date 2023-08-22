@@ -7,9 +7,13 @@ const myStyle = {
     fontFamily: "sans-serif",
     };
 
+    const Heading = {
+        textAlign: 'center'
+    }
+
 function Index({pokemon}) {
   return (
-    <div>
+    <div style={Heading}>
         <h1 style={myStyle}>See All The Pokemon!</h1>
         {
             pokemon.map((pokemon, i)=> {
@@ -17,6 +21,11 @@ function Index({pokemon}) {
                     <ul key={i}>
                         <li>
                            <a href={`/pokemon/${i}`}> {pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} </a> 
+                           {
+                            pokemon.readyToBattle ? "It's ready to battle" :
+                            "It's not ready to battle."
+                           }
+                
                         </li>
 
                     </ul>

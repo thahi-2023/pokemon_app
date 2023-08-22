@@ -9,9 +9,13 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 
-
-
-
+//middleware
+app.use((req, res, next)=> {
+    console.log('I run for all the routes!')
+    next();
+})
+ //This allows the body of a new post request
+ app.use(express.urlencoded({extended: false}))
 
 
 //Route Home
@@ -26,6 +30,26 @@ app.get('/pokemon', (req, res)=> {
         pokemon: pokemon,
     })
 })
+
+//New Routes for pokemon
+app.get("/pokemon/new", (req, res)=> {
+    res.render('New');
+})
+
+//Create = POST
+app.post("/pokemon", (req, res)=> {
+    console.log(req.body)
+    if (req.body.readyToBattle === 'on') {
+        req.body.readyToBattle = true;
+    }else {
+        req.body.readyToBattle = false;
+    }
+    pokemon.push(req.body);
+    console.log()
+    res.redirect('/pokemon');
+
+});
+
 
 //Show pokemon 
 app.get('/pokemon/:id', (req, res)=> {
