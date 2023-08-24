@@ -9,7 +9,7 @@ const myStyle = {
 
 function New() {
 
-    const IMG_URL= "https://img.pokemondb.net/artwork/large/raichu.jpg";
+    const IMG_URI= "https://img.pokemondb.net/artwork/large/raichu.jpg";
   return (
     <div>
         { /* form */ }

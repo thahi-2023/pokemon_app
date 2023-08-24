@@ -64,12 +64,8 @@ app.post("/pokemon", async (req, res)=> {
     }else {
         req.body.readyToBattle = false;
     }
-    const newPokemon = await Pokey.create({
-        name: req.body.name,
-        img: "http://img.pokemondb.net/artwork/" + req.body.name.toLowerCase(),
-        readyToFight: req.body.readyToFight
-    })
-    console.log(newPokemon)
+    const createdPokey = await Pokey.create(req.body)
+    
     res.redirect('/pokemon') // Redirect to the new Array
 })
    
@@ -80,7 +76,7 @@ app.post("/pokemon", async (req, res)=> {
 app.get('/pokemon/:id', async (req, res)=> {
     const onePokey = await Pokey.findById(req.params.id)
     res.render('Show', {
-        pokemon: onePokey
+        pokey: onePokey
     });
 });
 
