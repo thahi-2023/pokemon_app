@@ -1,10 +1,28 @@
+require('dotenv').config();
 const express = require('express');
+
 const app = express()
 const port = 3000;
+
 const pokemon = require('./models/pokemon.js')
+const Pokey = require('./models/pokey.js');
+
+
+const mongoose = require('mongoose');
+
+
+//connect WITH MONGOOSE
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,    
+})
+
+ mongoose.connection.once('open', ()=> {
+     console.log('connected to mongoDB');
+ });
 
 //setting view engine
-// Setting up view engine
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
@@ -19,15 +37,17 @@ app.use((req, res, next)=> {
 
 
 //Route Home
-app.get('/', (req, res)=> {
-   // res.send(pokemon)
-    res.send('<h1>Welcome To Pokemon App!<h1/>')
-});
+// app.get('/', (req, res)=> {
+//    // res.send(pokemon)
+//     res.send(`<h1>Welcome To <a href='/pokemon'> Pokemon </a> App!</h1>`)
+// });
 
 //pokemon Index
-app.get('/pokemon', (req, res)=> {
-    res.render('Index', {
-        pokemon: pokemon,
+
+app.get("/pokemon", async function (req, res){
+    const foundPokemon = await Pokey.find({})
+    res.render('/Index', {
+        pokemon: foundPokemon,
     })
 })
 
@@ -37,24 +57,30 @@ app.get("/pokemon/new", (req, res)=> {
 })
 
 //Create = POST
-app.post("/pokemon", (req, res)=> {
+app.post("/pokemon", async (req, res)=> {
     console.log(req.body)
     if (req.body.readyToBattle === 'on') {
         req.body.readyToBattle = true;
     }else {
         req.body.readyToBattle = false;
     }
-    pokemon.push(req.body);
-    console.log()
-    res.redirect('/pokemon');
-
-});
+    const newPokemon = await Pokey.create({
+        name: req.body.name,
+        img: "http://img.pokemondb.net/artwork/" + req.body.name.toLowerCase(),
+        readyToFight: req.body.readyToFight
+    })
+    console.log(newPokemon)
+    res.redirect('/pokemon') // Redirect to the new Array
+})
+   
+    
 
 
 //Show pokemon 
-app.get('/pokemon/:id', (req, res)=> {
+app.get('/pokemon/:id', async (req, res)=> {
+    const onePokey = await Pokey.findById(req.params.id)
     res.render('Show', {
-        pokemon: pokemon[req.params.id]
+        pokemon: onePokey
     });
 });
 

@@ -13,14 +13,19 @@ const myStyle = {
 
 function Index({pokemon}) {
   return (
-    <div style={Heading}>
-        <h1 style={myStyle}>See All The Pokemon!</h1>
+    <div>
+        
+        <nav style={Heading}>
+            <h2 style={myStyle}> See all the Pokemon</h2>
+            <a href={'/'}> Home </a>
+            <a href="pokemon/new"> Create New Pokemon</a>
+        </nav>
         {
             pokemon.map((pokemon, i)=> {
                 return (
                     <ul key={i}>
                         <li>
-                           <a href={`/pokemon/${i}`}> {pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} </a> 
+                           <a href={`/pokemon/${pokemon.id}`}> {pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} </a> 
                            {
                             pokemon.readyToBattle ? "It's ready to battle" :
                             "It's not ready to battle."
